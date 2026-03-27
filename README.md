@@ -1,8 +1,8 @@
 # Sweeppea MCP Server — Documentation
 
-> **Version:** 1.14.0 | **Tools:** 63 | **Categories:** 15 | **Protocol:** MCP 2025-11-25
+> **Version:** 1.14.1 | **Tools:** 64 | **Categories:** 15 | **Protocol:** MCP 2025-11-25
 
-Sweeppea MCP Server is a Model Context Protocol (MCP) server for AI-powered sweepstakes management. It provides 63 tools across 15 categories to manage sweepstakes, participants, official rules, winners, billing, calendar events, support tickets, and more — all accessible through any MCP-compatible AI client via Streamable HTTP transport.
+Sweeppea MCP Server is a Model Context Protocol (MCP) server for AI-powered sweepstakes management. It provides 64 tools across 15 categories to manage sweepstakes, participants, official rules, winners, billing, calendar events, support tickets, and more — all accessible through any MCP-compatible AI client via Streamable HTTP transport.
 
 > **Availability:** This MCP server is available exclusively for Sweeppea clients in the United States and Canada.
 
@@ -36,7 +36,7 @@ claude mcp add sweeppea https://mcp.sweeppea.com/ \
 |---|---|---|---|
 | 1 | [Account](./01-account-tools.md) | 4 | Profile, business info, plan details, health check |
 | 2 | [Sweepstakes](./02-sweepstakes-tools.md) | 7 | Create, update, clone, pause, delete sweepstakes |
-| 3 | [Participants](./03-participant-tools.md) | 5 | Add, search, list, count, delete participants |
+| 3 | [Participants](./03-participant-tools.md) | 6 | Add, search, list, count, delete participants |
 | 4 | [Entry Page](./04-entry-page-tools.md) | 3 | Form fields, settings, configuration |
 | 5 | [Groups](./05-group-tools.md) | 4 | Participant segmentation and organization |
 | 6 | [Notes](./06-notes-tools.md) | 5 | Encrypted notes management |

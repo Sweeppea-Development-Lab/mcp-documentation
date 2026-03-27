@@ -1,8 +1,8 @@
 # Participant Tools
 
-> **Category:** Participants | **Tools:** 5 | **Auth required:** Yes
+> **Category:** Participants | **Tools:** 6 | **Auth required:** Yes
 
-Manage sweepstakes participants: add, search, list, count, and delete entries.
+Manage sweepstakes participants: add, search, list, count, update bonus entries, and delete entries.
 
 ---
 
@@ -95,6 +95,22 @@ Get participant counts with optional type and date filtering.
 
 ---
 
+## update_bonus_entries
+
+Overwrite the bonus entries value for a participant in a sweepstakes. Use `get_participant` first to check current bonus entries.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `sweepstakes_token` | string | Yes | UUID of the sweepstakes |
+| `participant_token` | string | Yes | UUID of the participant |
+| `bonus_entries` | integer | Yes | New bonus entries value (0–1,000,000). Overwrites the current value. |
+
+**Use when:** Adjusting bonus entries for a participant after a promotion, reward, or correction.
+
+---
+
 ## delete_participant
 
 **DESTRUCTIVE — IRREVERSIBLE.** Permanently delete a single participant from a sweepstakes.
@@ -117,5 +133,6 @@ get_entry_fields        → discover required form fields
 add_participant         → add with correct field names
 fetch_participants      → browse with search/date filters
 get_participant         → look up specific person
+update_bonus_entries    → adjust bonus entries for a participant
 count_participants      → get statistics for reporting or pre-draw checks
 ```
