@@ -78,6 +78,13 @@ Generate complete Official Rules via a 14-step wizard. Complete HTML rules are g
 - "Void Where Prohibited" statement
 - Tax disclosure (IRS Form 1099-MISC for ARV > $600; additional language for ARV > $2,000)
 - Alcohol industry clauses (when `alcohol_sweeps=1`)
+- AMOE language (automatically generated based on `method_of_entry` — the AMOE URL is NOT the entry page URL)
+
+**Critical rules:**
+- Always set `rules_language` to `"en"`. The wizard generates ALL legal text server-side using certified legal templates. NEVER compose, write, or modify rules language yourself.
+- The AMOE URL is handled automatically by the wizard. Do NOT use the sweepstakes entry page URL as the AMOE URL — they are separate pages.
+- Age Gate should ONLY be activated (via `update_entry_settings`) when `min_age=2` (21+). NEVER activate Age Gate for 18+ or 13+.
+- To restrict geographic eligibility by state, use the `states` parameter (options 1–10). NEVER use GeoLocation entry page settings for state-level restrictions.
 
 ---
 

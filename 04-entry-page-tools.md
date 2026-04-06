@@ -98,10 +98,10 @@ Partially update entry page settings. Supports 80+ configurable fields.
 | `SelectedOfficialRules` | string | Rules document token to link |
 | `ReCaptcha` | boolean | Enable Google reCAPTCHA |
 
-#### Age Gate (Required for alcohol/cannabis)
+#### Age Gate (ONLY for alcohol/cannabis — 21+ promotions)
 | Field | Type | Description |
 |---|---|---|
-| `ActivateAgeGateSwitch` | boolean | Enable age verification gate |
+| `ActivateAgeGateSwitch` | boolean | Enable age verification gate. ONLY activate when min_age is 21+ (alcohol/cannabis). NEVER activate for 18+ or 13+ promotions. |
 | `AgeGateHeadline` | string | Age gate headline |
 | `AgeGateDescription` | string | Age gate description |
 | `AgeGateMinAge` | number | Minimum age (13, 18, or 21) |
@@ -151,12 +151,12 @@ Partially update entry page settings. Supports 80+ configurable fields.
 | `EmailOptInMessage` | string | Email opt-in label text |
 | `SMSTextOptInSwitch` | boolean | Show SMS marketing opt-in |
 
-#### Geolocation
+#### Geolocation (for GPS/IP physical boundaries ONLY — NOT for state-level eligibility)
 | Field | Type | Description |
 |---|---|---|
-| `GeoLocation` | boolean | Enable geolocation detection |
+| `GeoLocation` | boolean | Enable GPS/IP-based geolocation detection. For physical location boundaries (e.g., store radius), NOT for state-level restrictions. Use `states` parameter in `create_rules_wizard` for state eligibility. |
 | `GeoLocationIsRequiredToRenderPage` | boolean | Require geolocation to view page |
-| `AllowParticipantsWithinFences` | boolean | Restrict to geographic fences |
+| `AllowParticipantsWithinFences` | boolean | Restrict to geographic fences (physical boundaries) |
 
 #### Bonus Entries
 | Field | Type | Description |
@@ -246,5 +246,5 @@ The following CANNOT be configured via MCP and must be done at app.sweeppea.com:
 The following must be enabled for every sweepstakes:
 
 - `TermsConditionsSwitch: true` — Required. Displays "I agree with the Official Rules" checkbox.
-- `ActivateAgeGateSwitch: true` — Required for alcohol and cannabis promotions.
-- `ActivateAmoeSwitch: true` — Required when any entry method involves a purchase, donation, or subscription.
+- `ActivateAgeGateSwitch: true` — Required ONLY for alcohol and cannabis promotions (21+). NEVER activate for 18+ or 13+ promotions.
+- `ActivateAmoeSwitch: true` — Required when any entry method involves a purchase, donation, or subscription. Note: The AMOE page URL is managed automatically by Sweeppea — it is NOT the same as the entry page URL.

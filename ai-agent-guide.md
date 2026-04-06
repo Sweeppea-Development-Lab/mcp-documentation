@@ -2,7 +2,7 @@
 
 > This guide defines how AI agents connected to the Sweeppea MCP Server should behave. It covers the full workflow, critical guardrails, compliance decisions, and tool chaining best practices.
 
-**Server Version:** 1.14.1 | **Tools:** 63 | **Categories:** 15
+**Server Version:** 1.14.3 | **Tools:** 66 | **Categories:** 15
 **Endpoint:** `mcp.sweeppea.com` | **Transport:** Streamable HTTP | **Auth:** Bearer token
 **Availability:** United States and Canada — Sweeppea clients only
 
@@ -94,7 +94,7 @@ get_entry_settings → review current compliance settings
 **Required MCP configurations:**
 ```
 update_entry_settings → TermsConditionsSwitch: true   (REQUIRED)
-update_entry_settings → ActivateAgeGateSwitch: true   (if alcohol/cannabis)
+update_entry_settings → ActivateAgeGateSwitch: true   (ONLY if alcohol/cannabis — min_age must be 21+. NEVER activate for 18+ or 13+)
 update_entry_settings → ActivateAmoeSwitch: true       (if purchase-based)
 ```
 
@@ -103,7 +103,7 @@ update_entry_settings → ActivateAmoeSwitch: true       (if purchase-based)
 ```
 fetch_rules            → check if primary rules already exist (warn if secondary)
 get_business           → auto-populate sponsor fields
-create_rules_wizard    → generate full HTML rules document
+create_rules_wizard    → generate full HTML rules document (always use rules_language="en" — wizard generates all legal text, NEVER compose your own)
 fetch_rules            → verify generated document
 ```
 
@@ -182,6 +182,8 @@ The agent must make these decisions automatically without asking the user:
 | ARV > $500 + sponsor in RI | WARN about RI registration requirement. |
 | Entry method = purchase/donation/subscription | VERIFY AMOE is configured. If not, WARN. Block rules creation until resolved. |
 | Alcohol industry | VERIFY age minimum is 21. VERIFY Age Gate is active. |
+| Non-alcohol with age 18+ or 13+ | NEVER activate Age Gate. Age Gate is exclusively for 21+ (alcohol/cannabis). |
+| User asks to limit to "48 states" or "continental US" | Use `states=4` with `list_of_states` in create_rules_wizard. NEVER use GeoLocation for state-level restrictions. |
 | Age minimum < 13 | REFUSE. Explain COPPA violation. |
 | No Official Rules before drawing | BLOCK draw. Require rules first. |
 | Rules dates ≠ sweepstakes dates | WARN. Prompt user to sync dates. |

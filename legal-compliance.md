@@ -66,8 +66,8 @@ Must specify how and when winners will be contacted and the deadline to respond.
 | ARV > $5,000 + open to NY residents | Register and bond in New York, OR exclude New York |
 | ARV > $500 + sponsor has store in RI | Register in Rhode Island, OR exclude Rhode Island |
 
-### 14. Age Gate (for restricted industries)
-Required for alcohol (21+) and cannabis (21+) promotions.
+### 14. Age Gate (ONLY for alcohol/cannabis — 21+ promotions)
+Required ONLY for alcohol (21+) and cannabis (21+) promotions. NEVER activate Age Gate when minimum age is 18 or 13.
 
 Configure via:
 - `update_entry_settings` with `ActivateAgeGateSwitch: true` and `AgeGateMinAge: 21`
