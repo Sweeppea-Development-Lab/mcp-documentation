@@ -65,6 +65,7 @@ Create a new support ticket.
 | `title` | string | Yes | Brief summary (max 200 chars) |
 | `description` | string | Yes | Detailed description of the issue (max 20,000 chars) |
 | `priority` | number | Yes | `1`=Low, `2`=Medium, `3`=High |
+| `assign_to` | string | No | Name or email of an admin user to assign the ticket to exclusively. If omitted, assigned to all admins. Case-insensitive for names, exact for emails. |
 
 **Allowed HTML in description:** `<b>`, `<strong>`, `<i>`, `<hr>`, `<br>`
 
