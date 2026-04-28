@@ -1,8 +1,8 @@
 # File Management Tools
 
-> **Category:** Files / Drive | **Tools:** 4 | **Auth required:** Yes
+> **Category:** Files / Drive | **Tools:** 5 | **Auth required:** Yes
 
-Upload, list, delete, and share files from the user's Drive.
+Upload, list, delete, share, and generate short-lived URLs for files from the user's Drive.
 
 ---
 
@@ -78,11 +78,33 @@ Send a file from the user's Drive as an email attachment using the Sweeppea emai
 
 ---
 
+## get_file_url
+
+Generate a short-lived presigned S3 URL to download or preview a file from the user's Drive. The URL embeds the correct `Content-Type` and `Content-Disposition` headers; the actual transfer happens directly between the client and S3 (no data transfer cost on this endpoint).
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `file_token` | string | Yes | UUID of the file to generate a URL for. Get via `fetch_files`. |
+| `mode` | string | No | `"preview"` (inline, default) or `"download"` (forces attachment) |
+| `expires_in` | number | No | URL lifetime in seconds. Range: `60`–`3600`. Default: `900` (15 minutes). |
+
+**Returns:** File metadata (filename, MIME type, size), the resulting `mode`, the presigned `url`, the effective `expires_in`, and an absolute `expires_at` (ISO 8601).
+
+**Notes:**
+- Only the authenticated owner of the file can generate a URL for it
+- The URL becomes invalid when `expires_at` is reached
+- Reports `data_consumed: 0` because the transfer happens directly client ↔ S3
+
+---
+
 ## Workflow
 
 ```
 upload_file        → upload a document or image to Drive
 fetch_files        → list files, check storage usage
+get_file_url       → generate a short-lived URL to share or embed a file
 send_file          → share a file via email
 delete_file        → remove a file permanently (confirm first)
 ```

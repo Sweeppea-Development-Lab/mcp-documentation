@@ -1,8 +1,8 @@
 # Sweeppea MCP Server — Documentation
 
-> **Version:** 1.15.0 | **Tools:** 70 | **Categories:** 16 | **Protocol:** MCP 2025-11-25
+> **Version:** 1.15.3 | **Tools:** 71 | **Categories:** 16 | **Protocol:** MCP 2025-11-25
 
-Sweeppea MCP Server is a Model Context Protocol (MCP) server for AI-powered sweepstakes management. It provides 70 tools across 16 categories to manage sweepstakes, participants, official rules, winners, billing, calendar events, support tickets, and more — all accessible through any MCP-compatible AI client via Streamable HTTP transport.
+Sweeppea MCP Server is a Model Context Protocol (MCP) server for AI-powered sweepstakes management. It provides 71 tools across 16 categories to manage sweepstakes, participants, official rules, winners, billing, calendar events, support tickets, and more — all accessible through any MCP-compatible AI client via Streamable HTTP transport.
 
 > **Availability:** This MCP server is available exclusively for Sweeppea clients in the United States and Canada.
 
@@ -49,7 +49,7 @@ claude mcp add sweeppea https://mcp.sweeppea.com/ \
 | 13 | [Utilities](./13-utility-tools.md) | 5 | States, ZIP codes, area codes, countries, timezones |
 | 14 | [To-Do](./14-todo-tools.md) | 4 | Internal task management (admin only) |
 | 15 | [Testing](./15-testing-tools.md) | 1 | Connection verification |
-| 16 | [Files](./16-file-tools.md) | 4 | Upload, list, delete, and share files |
+| 16 | [Files](./16-file-tools.md) | 5 | Upload, list, delete, share files, and generate short-lived URLs |
 
 ---
 
