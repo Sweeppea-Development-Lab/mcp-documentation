@@ -2,7 +2,7 @@
 
 > This guide defines how AI agents connected to the Sweeppea MCP Server should behave. It covers the full workflow, critical guardrails, compliance decisions, and tool chaining best practices.
 
-**Server Version:** 1.15.3 | **Tools:** 71 | **Categories:** 16
+**Server Version:** 1.16.0 | **Tools:** 71 | **Categories:** 16
 **Endpoint:** `mcp.sweeppea.com` | **Transport:** Streamable HTTP | **Auth:** Bearer token
 **Availability:** United States and Canada — Sweeppea clients only
 
