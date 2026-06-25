@@ -65,12 +65,12 @@ Get subscription plan details for the Sweeppea account.
 
 **Parameters:** None
 
-**Returns:** Plan name, pricing, limits (max active sweepstakes, max total sweepstakes), available features, and current usage.
+**Returns:** Plan name (`Name`), pricing, the single sweepstakes cap (`Settings.MaxSweepstakesAllowed`), participants cap (`Settings.MaxParticipantsAllowed`), storage and API call limits, feature flags (`Settings.PaidModule*`), and real-time usage telemetry (`Telemetry.DataConsumed`, `Telemetry.APICalls`).
 
 **Use when:** Checking if the account can create additional sweepstakes before attempting `create_sweepstakes`.
 
 **Notes:**
-- Default limits: 3 active sweepstakes, 10 total (active + inactive).
+- The API exposes a single `MaxSweepstakesAllowed` cap per account — there is no separate active/total limit. Different plans (default, admin, enterprise) have different values; always trust `get_plan`.
 - Warn the user if they are at their limit before attempting to create a new sweepstakes.
 
 ---

@@ -27,7 +27,7 @@ Create a new sweepstakes programmatically.
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `sweepstakes_name` | string | Yes | Official name (used in rules and entry page) |
-| `sweepstakes_type` | number | Yes | `1`=SMS, `2`=Email, `3`=Social |
+| `sweepstakes_type` | number | No | Defaults to `2` (Email — recommended). `1`=SMS and `3`=Social exist but are rarely used; only specify if the user explicitly requests them. Cannot be changed after creation. |
 | `handler` | string | Yes | Unique identifier — alphanumeric only, max 20 chars, no spaces |
 | `start_date` | string | Yes | `YYYY-MM-DD` |
 | `end_date` | string | Yes | `YYYY-MM-DD` |
@@ -41,8 +41,9 @@ Create a new sweepstakes programmatically.
 **Returns:** `sweepstakes_token` (UUID) — save this, required for all subsequent operations.
 
 **Limits:**
-- Maximum 3 active sweepstakes simultaneously
-- Maximum 10 total sweepstakes (active + inactive)
+- Single per-plan cap on total sweepstakes (no separate active/total distinction).
+- Default plans have lower caps than custom plans. Call `get_plan` to read this account's actual `MaxSweepstakesAllowed`.
+- Warn the user if they are at or near their cap before calling `create_sweepstakes`.
 
 **Handler rules:**
 - Must be unique across the account

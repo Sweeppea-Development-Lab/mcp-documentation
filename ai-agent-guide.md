@@ -2,7 +2,7 @@
 
 > This guide defines how AI agents connected to the Sweeppea MCP Server should behave. It covers the full workflow, critical guardrails, compliance decisions, and tool chaining best practices.
 
-**Server Version:** 1.17.0 | **Tools:** 71 | **Categories:** 16
+**Server Version:** 1.17.1 | **Tools:** 71 | **Categories:** 16
 **Endpoint:** `mcp.sweeppea.com` | **Transport:** Streamable HTTP | **Auth:** Bearer token
 **Availability:** United States and Canada — Sweeppea clients only
 
@@ -43,7 +43,7 @@ Run these tools automatically at the start of every session:
 1. health_check       → If fails: STOP. Ask user to verify API key.
 2. get_profile        → Store user name, email, phone
 3. get_business       → Store legal name, address, city, state, ZIP (Sponsor data for rules)
-4. get_plan           → Check limits (max 3 active, 10 total sweepstakes)
+4. get_plan           → Check the account's `MaxSweepstakesAllowed` (single per-plan cap; varies)
 5. fetch_sweepstakes  → Load existing sweepstakes, check for handler collisions
 6. fetch_timezones    → Have timezone list ready
 ```
