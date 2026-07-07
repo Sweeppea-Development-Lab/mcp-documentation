@@ -64,6 +64,8 @@ Partially update entry page settings. Supports 80+ configurable fields.
 
 **Measure fields:** `EntryPageWidthMeasure` only accepts `"%"` or `"px"`.
 
+> ⚠️ **Prize amounts cannot be changed with this tool.** The prize (value and description) is set through the Official Rules wizard at creation time and is not editable via the API. Do not use `EntryPageHeadline` or `EntryPageDescription` to "update" a prize amount — the display text would contradict the Official Rules and internal records. Prize changes must be handled through Sweeppea support.
+
 ---
 
 ### Configurable Fields Reference

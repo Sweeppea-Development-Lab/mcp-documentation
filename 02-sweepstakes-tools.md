@@ -73,7 +73,7 @@ Update an existing sweepstakes.
 | `start_time` | string | No | `HH:MM` (24-hour) |
 | `end_time` | string | No | `HH:MM` (24-hour) |
 
-**Cannot change:** Handler and sweepstakes type — these are permanent after creation.
+**Cannot change:** Handler, sweepstakes type, and prize value/description — these are permanent after creation. Prize changes are not supported by any MCP tool; they must be handled through Sweeppea support.
 
 **Notes:**
 - If you update dates, also update the Official Rules document to match.

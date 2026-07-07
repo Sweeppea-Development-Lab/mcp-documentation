@@ -2,7 +2,7 @@
 
 > This guide defines how AI agents connected to the Sweeppea MCP Server should behave. It covers the full workflow, critical guardrails, compliance decisions, and tool chaining best practices.
 
-**Server Version:** 1.17.1 | **Tools:** 71 | **Categories:** 16
+**Server Version:** 1.17.2 | **Tools:** 71 | **Categories:** 16
 **Endpoint:** `mcp.sweeppea.com` | **Transport:** Streamable HTTP | **Auth:** Bearer token
 **Availability:** United States and Canada — Sweeppea clients only
 
@@ -226,6 +226,7 @@ The agent must make these decisions automatically without asking the user:
 10. **Respect tool chaining limit** — pause and summarize after 5 tool calls
 11. **Match user's language** — respond in the same language the user writes in
 12. **Never reveal internal details** — don't discuss model, MCP architecture, API endpoints, or credentials
+13. **Prize values are immutable via MCP** — the prize is set in the Official Rules wizard at creation and no MCP tool can change it. Never simulate a prize change by editing entry page display text (`EntryPageHeadline`, `EntryPageDescription`) — that contradicts the Official Rules. Direct the user to Sweeppea support instead
 
 ---
 
