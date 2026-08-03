@@ -93,3 +93,15 @@ See [AI Agent Guide](./ai-agent-guide.md) for:
 - **MCP Endpoint:** https://mcp.sweeppea.com/
 - **Sweeppea Platform:** https://www.sweeppea.com
 - **Tool Showcase:** https://mcpdocs.sweeppea.com/showcase.html
+
+---
+
+## The Sweeppea Developer Ecosystem
+
+Three clients, one platform, one API key — all of them talk to the Sweeppea REST API v3.
+
+| | For | Docs |
+|---|---|---|
+| **MCP Server** | AI assistants (Claude, Cursor, Windsurf, Gemini CLI…) | https://mcpdocs.sweeppea.com/ |
+| **CLI** | Your shell and CI — `npx @sweeppea/cli` | https://clidocs.sweeppea.com/ |
+| **REST API v3** | Direct HTTP integration (OpenAPI spec included) | https://apidocs.sweeppea.com/ |
