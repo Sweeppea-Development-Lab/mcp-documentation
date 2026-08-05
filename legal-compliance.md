@@ -56,15 +56,16 @@ Must include a valid URL (with `https://`) to the sponsor's privacy policy.
 Must specify how and when winners will be contacted and the deadline to respond.
 
 ### 12. Tax Disclosure
-- For prizes with ARV > $600: winners may receive IRS Form 1099-MISC
-- For ARV > $2,000: this language is automatically included by the wizard
+- Prizes of significant value can create IRS reporting obligations for the winner (Form 1099)
+- The reporting threshold has changed under recent tax legislation — confirm the current figure with a tax professional or the Sweeppea team rather than quoting a specific amount
+- The rules wizard includes the appropriate tax language automatically when the ARV requires it
 
 ### 13. State Registration and Bonding
 | Condition | Requirement |
 |---|---|
-| ARV > $5,000 + open to FL residents | Register and bond in Florida, OR exclude Florida |
-| ARV > $5,000 + open to NY residents | Register and bond in New York, OR exclude New York |
-| ARV > $500 + sponsor has store in RI | Register in Rhode Island, OR exclude Rhode Island |
+| ARV > $5,000 + open to FL residents | Register and bond in Florida (file at least 7 days before the start date), OR exclude Florida |
+| ARV > $5,000 + open to NY residents | Register and bond in New York (file at least 30 days before the start date), OR exclude New York |
+| ARV > $500 + sponsor is a retailer with a physical location in RI + entry requires visiting the store (all three conditions) | Register in Rhode Island, OR exclude Rhode Island |
 
 ### 14. Age Gate (ONLY for alcohol/cannabis — 21+ promotions)
 Required ONLY for alcohol (21+) and cannabis (21+) promotions. NEVER activate Age Gate when minimum age is 18 or 13.
@@ -105,9 +106,8 @@ The AI agent must issue these warnings proactively when conditions are detected:
 - Minimum age: **21+**
 - Age Gate: **required**
 - Set `alcohol_sweeps=1` in `create_rules_wizard`
-- Some states require Alcohol Beverage Control Board approval:
-  - Alabama, Indiana, Maine, Maryland, North Carolina, Vermont, West Virginia
-  - Service fee: $800 for first state, $200 for each additional state
+- Some states require Alcohol Beverage Control Board approval before an alcohol promotion can run
+  - The specific state list and service fees change over time — confirm current requirements with the Sweeppea team before launch
 
 ### Cannabis Promotions
 - Permitted **only in states where recreational cannabis is legal**

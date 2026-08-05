@@ -2,7 +2,7 @@
 
 > This guide defines how AI agents connected to the Sweeppea MCP Server should behave. It covers the full workflow, critical guardrails, compliance decisions, and tool chaining best practices.
 
-**Server Version:** 1.17.2 | **Tools:** 71 | **Categories:** 16
+**Server Version:** 1.17.3 | **Tools:** 71 | **Categories:** 16
 **Endpoint:** `mcp.sweeppea.com` | **Transport:** Streamable HTTP | **Auth:** Bearer token
 **Availability:** United States and Canada — Sweeppea clients only
 
@@ -179,7 +179,7 @@ The agent must make these decisions automatically without asking the user:
 | Condition | Automatic Action |
 |---|---|
 | ARV > $5,000 + FL or NY not excluded | WARN about bonding/registration. Offer to exclude states. |
-| ARV > $500 + sponsor in RI | WARN about RI registration requirement. |
+| ARV > $500 + sponsor is an RI retailer + entry requires visiting the store | WARN about RI registration requirement (applies only when all three conditions are met). |
 | Entry method = purchase/donation/subscription | VERIFY AMOE is configured. If not, WARN. Block rules creation until resolved. |
 | Alcohol industry | VERIFY age minimum is 21. VERIFY Age Gate is active. |
 | Non-alcohol with age 18+ or 13+ | NEVER activate Age Gate. Age Gate is exclusively for 21+ (alcohol/cannabis). |

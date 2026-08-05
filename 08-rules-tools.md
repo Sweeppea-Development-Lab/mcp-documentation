@@ -76,7 +76,7 @@ Generate complete Official Rules via a 14-step wizard. Complete HTML rules are g
 **Automatic compliance built into the wizard:**
 - "No Purchase Necessary" statement (when applicable)
 - "Void Where Prohibited" statement
-- Tax disclosure (IRS Form 1099-MISC for ARV > $600; additional language for ARV > $2,000)
+- Tax disclosure (IRS Form 1099 language, included automatically when the prize ARV requires it — the reporting threshold has changed under recent tax legislation; confirm the current figure rather than quoting one)
 - Alcohol industry clauses (when `alcohol_sweeps=1`)
 - AMOE language (automatically generated based on `method_of_entry` — the AMOE URL is NOT the entry page URL)
 
@@ -151,7 +151,7 @@ Before finalizing rules, verify:
 - [ ] "No Purchase Necessary" statement included (if applicable)
 - [ ] "Void Where Prohibited" statement included
 - [ ] Minimum age is correct (13, 18, or 21)
-- [ ] Tax disclosure included for prizes > $600 ARV
+- [ ] Tax disclosure included when the prize ARV requires IRS reporting (confirm the current threshold — do not assume a specific figure)
 
 ---
 
@@ -159,6 +159,6 @@ Before finalizing rules, verify:
 
 | Condition | Action Required |
 |---|---|
-| ARV > $5,000 + open to FL residents | Register and bond in Florida, OR exclude Florida |
-| ARV > $5,000 + open to NY residents | Register and bond in New York, OR exclude New York |
-| ARV > $500 + sponsor has store in RI | Register in Rhode Island, OR exclude Rhode Island |
+| ARV > $5,000 + open to FL residents | Register and bond in Florida (file at least 7 days before the start date), OR exclude Florida |
+| ARV > $5,000 + open to NY residents | Register and bond in New York (file at least 30 days before the start date), OR exclude New York |
+| ARV > $500 + sponsor is a retailer with a physical location in RI + entry requires visiting the store (all three conditions) | Register in Rhode Island, OR exclude Rhode Island |

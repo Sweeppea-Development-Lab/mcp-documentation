@@ -17,7 +17,7 @@ Add a new participant to a sweepstakes. For testing and administrative purposes 
 | `sweepstakes_token` | string | Yes | UUID of the target sweepstakes |
 | `email` | string | Yes | Participant email address |
 | `fields` | object | Yes | Form field values (discovered via `get_entry_fields`) |
-| `phone` | string | No | Phone number in `(XXX) XXX-XXXX` format for US, E.164 for international |
+| `phone` | string | Yes | Phone number, digits only for US (e.g., `5551234567`), E.164 for international |
 | `bonus_entries` | number | No | Additional entries to award (default: `0`) |
 
 **Fields format:**
@@ -31,6 +31,8 @@ Use underscores to replace spaces in field names. Example:
 ```
 
 **IMPORTANT:** Always call `get_entry_fields` before `add_participant` to discover the correct field names and which are required.
+
+**Note:** The API requires both `email` and `phone` to be present and non-empty. A request missing either one is rejected with a misleading `Some parameters exceeded maximum field length` error.
 
 **Privacy requirements:**
 - The email and phone must belong to the participant and were provided with their consent.
