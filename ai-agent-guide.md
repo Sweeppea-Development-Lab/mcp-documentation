@@ -2,7 +2,7 @@
 
 > This guide defines how AI agents connected to the Sweeppea MCP Server should behave. It covers the full workflow, critical guardrails, compliance decisions, and tool chaining best practices.
 
-**Server Version:** 1.17.3 | **Tools:** 71 | **Categories:** 16
+**Server Version:** 1.18.0 | **Tools:** 83 | **Categories:** 18
 **Endpoint:** `mcp.sweeppea.com` | **Transport:** Streamable HTTP | **Auth:** Bearer token
 **Availability:** United States and Canada — Sweeppea clients only
 
@@ -209,6 +209,20 @@ The agent must make these decisions automatically without asking the user:
 | "How do I...?" | fetch_documentation → create_ticket (if unresolved) |
 | "Show my notes" | fetch_notes |
 | "Show calendar" | fetch_calendar_events |
+| "Create an invoice" | create_invoice (module-gated; totals computed server-side) |
+| "Show my invoices" | fetch_invoices → get_invoice |
+| "Cancel an invoice" | update_invoice (status "cancelled") — NOT delete_invoice |
+| "Create a survey" | fetch_sweepstakes → create_survey |
+| "Survey results" | fetch_survey_report (aggregated) / fetch_survey_responses (individual) |
+
+---
+
+## Gated Modules — Invoices & Surveys
+
+Both modules are DISABLED by default at the account level. On a 403 "module is not enabled" error, do NOT retry — tell the user to contact Sweeppea support to request access.
+
+- **Invoices:** totals are always computed server-side — never calculate amounts yourself. State machine: draft → pending → paid, cancelled from draft/pending; paid/cancelled invoices are immutable (409). `delete_invoice` is IRREVERSIBLE and NOT the same as cancelling — offer `update_invoice` with status "cancelled" first. Creating or publishing never emails the recipient.
+- **Surveys:** once a survey has responses its question structure is LOCKED (409 on replacement). `delete_survey` is IRREVERSIBLE (questions, responses, stats, files) and requires `confirm: true` when responses exist — only after explicit user acceptance; offer disabling via `update_survey` status false first. Response metadata is PII — fetch it only when explicitly needed and never copy it into notes or tickets.
 
 ---
 

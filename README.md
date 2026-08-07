@@ -1,8 +1,8 @@
 # Sweeppea MCP Server — Documentation
 
-> **Version:** 1.17.3 | **Tools:** 71 | **Categories:** 16 | **Protocol:** MCP 2025-11-25
+> **Version:** 1.18.0 | **Tools:** 83 | **Categories:** 18 | **Protocol:** MCP 2025-11-25
 
-Sweeppea MCP Server is a Model Context Protocol (MCP) server for AI-powered sweepstakes management. It provides 71 tools across 16 categories to manage sweepstakes, participants, official rules, winners, billing, calendar events, support tickets, and more — all accessible through any MCP-compatible AI client via Streamable HTTP transport.
+Sweeppea MCP Server is a Model Context Protocol (MCP) server for AI-powered sweepstakes management. It provides 83 tools across 18 categories to manage sweepstakes, participants, official rules, winners, billing, calendar events, support tickets, and more — all accessible through any MCP-compatible AI client via Streamable HTTP transport.
 
 > **Availability:** This MCP server is available exclusively for Sweeppea clients in the United States and Canada.
 
@@ -42,7 +42,7 @@ claude mcp add sweeppea https://mcp.sweeppea.com/ \
 | 6 | [Notes](./06-notes-tools.md) | 5 | Encrypted notes management |
 | 7 | [Calendar](./07-calendar-tools.md) | 5 | Campaign milestone calendar events |
 | 8 | [Rules](./08-rules-tools.md) | 5 | Official rules documents and wizard |
-| 9 | [Billing & Wallet](./09-billing-wallet-tools.md) | 4 | Invoices, usage, wallet transactions |
+| 9 | [Billing & Wallet](./09-billing-wallet-tools.md) | 4 | Usage, wallet and billing transactions, data transfer |
 | 10 | [Support Tickets](./10-support-ticket-tools.md) | 7 | Create and manage support requests |
 | 11 | [Winners](./11-winner-tools.md) | 5 | Draw winners, schedule drawings |
 | 12 | [Documentation](./12-documentation-tools.md) | 1 | Search help articles |
@@ -50,6 +50,8 @@ claude mcp add sweeppea https://mcp.sweeppea.com/ \
 | 14 | [To-Do](./14-todo-tools.md) | 4 | Internal task management (admin only) |
 | 15 | [Testing](./15-testing-tools.md) | 1 | Connection verification |
 | 16 | [Files](./16-file-tools.md) | 5 | Upload, list, delete, share files, and generate short-lived URLs |
+| 17 | [Invoices](./17-invoice-tools.md) | 5 | Create, list, update, cancel and delete invoices (account-gated module) |
+| 18 | [Surveys](./18-survey-tools.md) | 7 | Surveys attached to sweepstakes: questions, responses, reports (account-gated module) |
 
 ---
 
