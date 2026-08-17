@@ -56,8 +56,8 @@ Must include a valid URL (with `https://`) to the sponsor's privacy policy.
 Must specify how and when winners will be contacted and the deadline to respond.
 
 ### 12. Tax Disclosure
-- Prizes of significant value can create IRS reporting obligations for the winner (Form 1099)
-- The reporting threshold has changed under recent tax legislation — confirm the current figure with a tax professional or the Sweeppea team rather than quoting a specific amount
+- Prizes of **US$2,000 or more per winner** create IRS reporting obligations for the winner (Form 1099-MISC)
+- Recommend confirming current requirements with a tax professional
 - The rules wizard includes the appropriate tax language automatically when the ARV requires it
 
 ### 13. State Registration and Bonding
@@ -81,6 +81,15 @@ Configure via:
 - `update_entry_settings` with `TermsConditionsSwitch: true`
 - OR: Entry Page > toggle in the web interface
 
+### 16. Canada — Mathematical Skill-Testing Question
+**Always** applies when the promotion is open to Canadian residents (`states` values 7, 8, 9 or 10 in `create_rules_wizard`): the Official Rules must state that the winner will be required to correctly answer a mathematical skill-testing question to receive the prize.
+
+### 17. Canada — Quebec (RACJ)
+| Scenario | Requirement |
+|---|---|
+| Offered Canada-wide | No RACJ registration needed |
+| Offered ONLY in Quebec, or prizes designated for Quebec winners | RACJ registration required **and** the Official Rules must be translated into French |
+
 ---
 
 ## Automatic Compliance Warnings
@@ -103,11 +112,11 @@ The AI agent must issue these warnings proactively when conditions are detected:
 ## Industry-Specific Requirements
 
 ### Alcohol Promotions
+- The alcohol trigger is **who the sponsor is, not what the prize is**: `alcohol_sweeps=1` in `create_rules_wizard` applies ONLY when the sponsor **produces or manufactures** alcoholic products. A retailer, store, supermarket, bar or restaurant that merely sells alcohol is NOT an alcohol sponsor (`alcohol_sweeps=2`). A brewery giving away concert tickets IS an alcohol sponsor (`alcohol_sweeps=1`)
 - Minimum age: **21+**
 - Age Gate: **required**
-- Set `alcohol_sweeps=1` in `create_rules_wizard`
-- Some states require Alcohol Beverage Control Board approval before an alcohol promotion can run
-  - The specific state list and service fees change over time — confirm current requirements with the Sweeppea team before launch
+- Seven states require State Alcohol Board approval before an alcohol promotion can run: **Alabama (AL), Indiana (IN), Maine (ME), Maryland (MD), North Carolina (NC), Vermont (VT), West Virginia (WV)**
+  - Confirm current requirements and fees with the Sweeppea team before launch
 
 ### Cannabis Promotions
 - Permitted **only in states where recreational cannabis is legal**

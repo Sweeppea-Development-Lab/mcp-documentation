@@ -32,7 +32,7 @@ Generate complete Official Rules via a 14-step wizard. Complete HTML rules are g
 |---|---|---|
 | `sweepstakes_token` | string | UUID of the sweepstakes |
 | `arv` | number | `1` = ARV ≥ $5,000 (requires bonding/registration for FL/NY), `2` = ARV < $5,000 |
-| `alcohol_sweeps` | number | `1` = Yes (alcohol industry), `2` = No |
+| `alcohol_sweeps` | number | `1` = the SPONSOR produces/manufactures alcoholic products, `2` = No. Only producers/manufacturers count — a retailer, store, bar or restaurant that merely sells alcohol is `2`. The trigger is who the sponsor is, not what the prize is (a brewery giving away concert tickets is `1`). When `1`, `min_age` must be `2` (21+) |
 | `sweepstakes_name` | string | Official name (6–60 characters) |
 | `start_date` | string | `YYYY-MM-DD` — must match sweepstakes config |
 | `start_time` | string | `HH:MM` (24-hour) — must match sweepstakes config |
@@ -52,7 +52,7 @@ Generate complete Official Rules via a 14-step wizard. Complete HTML rules are g
 | `sponsor_zip_code` | string | Sponsor ZIP code (use `get_business` data) |
 | `method_of_entry` | number | `1`=Website, `2`=SMS, `3`=Social, `4`=Other, `5`=Purchase, `6`=Donation, `7`=Subscription, `8`=Purchase+Website |
 | `min_age` | number | `1`=18+, `2`=21+, `3`=13+ |
-| `states` | number | Geographic eligibility: `1`=Contiguous US (48), `2`=50 US States, `3`=50 States + DC, `4`=Specific states list, `5`=North America, `6`=US + Canada, `7`=US + Mexico, `8`=US + Puerto Rico, `9`=US + All Territories, `10`=Worldwide |
+| `states` | number | Geographic eligibility: `1`=48 contiguous US + DC, `2`=50 US + DC, `3`=50 US + DC + US Virgin Islands + Puerto Rico, `4`=specific states (requires `list_of_states`), `5`=50 US + DC excluding FL and NY, `6`=50 US + DC excluding FL, NY and RI, `7`=50 US + DC + Canada, `8`=50 US + DC + Canada excluding FL and NY, `9`=50 US + DC + Canada excluding FL, NY and RI, `10`=Canada only. Values 5, 6, 8 and 9 exist to avoid the registration/bonding requirements of FL, NY and RI |
 | `privacy_policy_url` | string | Valid URL (must start with `https://`) to sponsor's privacy policy |
 | `sweeppea_entry_page` | number | `1`=Sweeppea-hosted entry page, `2`=Custom entry page, `3`=No digital entry page |
 
@@ -76,7 +76,7 @@ Generate complete Official Rules via a 14-step wizard. Complete HTML rules are g
 **Automatic compliance built into the wizard:**
 - "No Purchase Necessary" statement (when applicable)
 - "Void Where Prohibited" statement
-- Tax disclosure (IRS Form 1099 language, included automatically when the prize ARV requires it — the reporting threshold has changed under recent tax legislation; confirm the current figure rather than quoting one)
+- Tax disclosure (IRS Form 1099-MISC language, included automatically — applies to prizes of US$2,000 or more per winner)
 - Alcohol industry clauses (when `alcohol_sweeps=1`)
 - AMOE language (automatically generated based on `method_of_entry` — the AMOE URL is NOT the entry page URL)
 
@@ -85,12 +85,15 @@ Generate complete Official Rules via a 14-step wizard. Complete HTML rules are g
 - The AMOE URL is handled automatically by the wizard. Do NOT use the sweepstakes entry page URL as the AMOE URL — they are separate pages.
 - Age Gate should ONLY be activated (via `update_entry_settings`) when `min_age=2` (21+). NEVER activate Age Gate for 18+ or 13+.
 - To restrict geographic eligibility by state, use the `states` parameter (options 1–10). NEVER use GeoLocation entry page settings for state-level restrictions.
+- When the promotion is open to Canadian residents (`states` 7, 8, 9 or 10), the rules must state that Canadian winners answer a mathematical skill-testing question to receive the prize. If the promotion is offered ONLY in Quebec (or has prizes designated for Quebec winners), RACJ registration and a French translation of the rules are required; Canada-wide promotions need neither.
 
 ---
 
 ## create_rule
 
 Create a manual rules document with custom HTML content. Use only when the wizard does not meet your needs (e.g., highly customized legal language).
+
+**Legal bypass warning:** this tool publishes a free-form document WITHOUT the wizard's legal safeguards (AMOE enforcement, 21+ alcohol gate, COPPA, state eligibility clauses). Always prefer `create_rules_wizard`. AI agents must never compose or modify the legal language themselves, must require explicit user confirmation before publishing (as with `delete_*` tools), and must confirm the document was prepared or reviewed by the user or their counsel.
 
 **Parameters:**
 
@@ -119,6 +122,8 @@ Update an existing official rules document. Supports partial updates.
 | `abbreviated_rules_shopify` | string | No | Abbreviated rules for Shopify integration |
 
 **Use when:** Correcting dates, prize descriptions, or sponsor information after creation.
+
+**Legal bypass warning:** replacing `document_content` swaps a legally valid document for free-form HTML that bypasses every wizard safeguard. AI agents must never compose the replacement themselves and must require explicit user confirmation first (as with `delete_*` tools).
 
 ---
 

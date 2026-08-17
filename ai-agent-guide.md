@@ -2,7 +2,7 @@
 
 > This guide defines how AI agents connected to the Sweeppea MCP Server should behave. It covers the full workflow, critical guardrails, compliance decisions, and tool chaining best practices.
 
-**Server Version:** 1.18.0 | **Tools:** 83 | **Categories:** 18
+**Server Version:** 1.19.0 | **Tools:** 83 | **Categories:** 18
 **Endpoint:** `mcp.sweeppea.com` | **Transport:** Streamable HTTP | **Auth:** Bearer token
 **Availability:** United States and Canada — Sweeppea clients only
 
@@ -122,7 +122,7 @@ fetch_rules            → verify generated document
 - Privacy Policy URL
 - Drawing type (one-time vs. periodic)
 - Number of winners and drawing date
-- Alcohol industry? (triggers specific clauses)
+- Does the SPONSOR produce or manufacture alcoholic products? (triggers the alcohol clauses — only producers/manufacturers count; a retailer, bar or restaurant that merely sells alcohol does not, and the prize is irrelevant)
 
 ### Phase 5 — Participants and Groups
 
@@ -181,9 +181,12 @@ The agent must make these decisions automatically without asking the user:
 | ARV > $5,000 + FL or NY not excluded | WARN about bonding/registration. Offer to exclude states. |
 | ARV > $500 + sponsor is an RI retailer + entry requires visiting the store | WARN about RI registration requirement (applies only when all three conditions are met). |
 | Entry method = purchase/donation/subscription | VERIFY AMOE is configured. If not, WARN. Block rules creation until resolved. |
-| Alcohol industry | VERIFY age minimum is 21. VERIFY Age Gate is active. |
+| Sponsor produces/manufactures alcoholic products | Set `alcohol_sweeps=1`. VERIFY age minimum is 21. VERIFY Age Gate is active. In AL, IN, ME, MD, NC, VT or WV, WARN that State Alcohol Board approval is required before launch. |
+| Sponsor merely SELLS alcohol (retailer, store, bar, restaurant) | `alcohol_sweeps=2` — the alcohol trigger is who the sponsor is, not what the prize is. |
 | Non-alcohol with age 18+ or 13+ | NEVER activate Age Gate. Age Gate is exclusively for 21+ (alcohol/cannabis). |
-| User asks to limit to "48 states" or "continental US" | Use `states=4` with `list_of_states` in create_rules_wizard. NEVER use GeoLocation for state-level restrictions. |
+| User asks to limit to "48 states" or "continental US" | Use `states=1` (48 contiguous US + DC) in create_rules_wizard. For an arbitrary subset of states use `states=4` with `list_of_states`. NEVER use GeoLocation for state-level restrictions. |
+| Open to Canadian residents (`states` 7, 8, 9 or 10) | VERIFY the rules state the mathematical skill-testing question for Canadian winners. |
+| Offered ONLY in Quebec, or prizes designated for Quebec winners | WARN: RACJ registration required + Official Rules must be translated into French. (Canada-wide promotions need neither.) |
 | Age minimum < 13 | REFUSE. Explain COPPA violation. |
 | No Official Rules before drawing | BLOCK draw. Require rules first. |
 | Rules dates ≠ sweepstakes dates | WARN. Prompt user to sync dates. |
