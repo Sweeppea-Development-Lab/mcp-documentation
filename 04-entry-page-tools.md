@@ -106,7 +106,7 @@ Partially update entry page settings. Supports 80+ configurable fields.
 | `ActivateAgeGateSwitch` | boolean | Enable age verification gate. ONLY activate when min_age is 21+ (alcohol/cannabis). NEVER activate for 18+ or 13+ promotions. |
 | `AgeGateHeadline` | string | Age gate headline |
 | `AgeGateDescription` | string | Age gate description |
-| `AgeGateMinAge` | number | Minimum age (13, 18, or 21) |
+| `AgeGateMinAge` | number | Minimum age **enum, not years**: `1` = 13+, `2` = 18+, `3` = 21+. Sending 13/18/21 is rejected by the API. Not the same enum as `min_age` in `create_rules_wizard` (there `1` = 18+, `2` = 21+, `3` = 13+) |
 | `AgeGateBackgroundColor` | `{ "hex": "#RRGGBB" }` | Age gate background |
 | `AgeGateTextColor` | `{ "hex": "#RRGGBB" }` | Age gate text color |
 

@@ -71,7 +71,7 @@ Must specify how and when winners will be contacted and the deadline to respond.
 Required ONLY for alcohol (21+) and cannabis (21+) promotions. NEVER activate Age Gate when minimum age is 18 or 13.
 
 Configure via:
-- `update_entry_settings` with `ActivateAgeGateSwitch: true` and `AgeGateMinAge: 21`
+- `update_entry_settings` with `ActivateAgeGateSwitch: true` and `AgeGateMinAge: 3` (the enum code for 21+ — **not** the number 21, which the API rejects)
 - OR: Entry Page > AGE GATE module
 
 ### 15. Official Rules Consent Checkbox

@@ -1,6 +1,6 @@
 # Sweeppea MCP Server — Documentation
 
-> **Version:** 1.19.0 | **Tools:** 83 | **Categories:** 18 | **Protocol:** MCP 2025-11-25
+> **Version:** 1.19.1 | **Tools:** 83 | **Categories:** 18 | **Protocol:** MCP 2025-11-25
 
 Sweeppea MCP Server is a Model Context Protocol (MCP) server for AI-powered sweepstakes management. It provides 83 tools across 18 categories to manage sweepstakes, participants, official rules, winners, billing, calendar events, support tickets, and more — all accessible through any MCP-compatible AI client via Streamable HTTP transport.
 
