@@ -123,6 +123,7 @@ Overwrite the bonus entries value for a participant in a sweepstakes. Use `get_p
 |---|---|---|---|
 | `sweepstakes_token` | string | Yes | UUID of the sweepstakes |
 | `participant_token` | string | Yes | UUID of the participant to delete |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it. |
 
 **CRITICAL:** Always ask for explicit user confirmation before calling this tool. This removes the participant from all groups and winner pools.
 

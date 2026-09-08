@@ -32,6 +32,8 @@ Generate complete Official Rules via a 14-step wizard. Complete HTML rules are g
 |---|---|---|
 | `sweepstakes_token` | string | UUID of the sweepstakes |
 | `arv` | number | `1` = ARV ≥ $5,000 (requires bonding/registration for FL/NY), `2` = ARV < $5,000 |
+| `nicotine_tobacco_sweeps` | number | `1` = the promotion involves tobacco, nicotine or vaping products, `2` = No. **No producer/retailer distinction:** federal Tobacco 21 sets 21 for every tobacco and nicotine product, so a store that merely sells vapes is `1`. When `1`: `min_age` must be `2` (21+) and `states` must be `4` with a `list_of_states` excluding Massachusetts, Michigan and Virginia, which prohibit tobacco-related sweepstakes. Separately, the prize may never be the product itself (free sample ban, 21 CFR 1140.16(d)(1)) — a discount or a coupon redeemed at a paid age-verified purchase is permitted. Used by the MCP guardrail; not sent to the API |
+| `sponsor_data_confirmed` | boolean | Must be `true`. Asserts you showed the user the exact sponsor block that will be printed in the public Official Rules and they approved it. Sponsor data comes from the user or `get_business` — never from an earlier conversation |
 | `alcohol_sweeps` | number | `1` = the SPONSOR produces/manufactures alcoholic products, `2` = No. Only producers/manufacturers count — a retailer, store, bar or restaurant that merely sells alcohol is `2`. The trigger is who the sponsor is, not what the prize is (a brewery giving away concert tickets is `1`). When `1`, `min_age` must be `2` (21+) |
 | `sweepstakes_name` | string | Official name (6–60 characters) |
 | `start_date` | string | `YYYY-MM-DD` — must match sweepstakes config |
@@ -51,7 +53,8 @@ Generate complete Official Rules via a 14-step wizard. Complete HTML rules are g
 | `sponsor_state` | string | Sponsor state abbreviation (use `get_business` data) |
 | `sponsor_zip_code` | string | Sponsor ZIP code (use `get_business` data) |
 | `method_of_entry` | number | `1`=Website, `2`=SMS, `3`=Social, `4`=Other, `5`=Purchase, `6`=Donation, `7`=Subscription, `8`=Purchase+Website |
-| `min_age` | number | `1`=18+, `2`=21+, `3`=13+ |
+| `min_age` | number | `1`=18+, `2`=21+, `3`=13+. Must be `2` whenever `alcohol_sweeps=1` or `nicotine_tobacco_sweeps=1`. Not the same enum as `AgeGateMinAge` in `update_entry_settings` (there 1=13+, 2=18+, 3=21+) |
+| `sponsor_email_is_account_owner` | boolean | Set `true` only when the user confirmed the account owner's own email is the sponsor contact to publish. The server blocks a `sponsor_email` equal to the account profile email until you do |
 | `states` | number | Geographic eligibility: `1`=48 contiguous US + DC, `2`=50 US + DC, `3`=50 US + DC + US Virgin Islands + Puerto Rico, `4`=specific states (requires `list_of_states`), `5`=50 US + DC excluding FL and NY, `6`=50 US + DC excluding FL, NY and RI, `7`=50 US + DC + Canada, `8`=50 US + DC + Canada excluding FL and NY, `9`=50 US + DC + Canada excluding FL, NY and RI, `10`=Canada only. Values 5, 6, 8 and 9 exist to avoid the registration/bonding requirements of FL, NY and RI |
 | `privacy_policy_url` | string | Valid URL (must start with `https://`) to sponsor's privacy policy |
 | `sweeppea_entry_page` | number | `1`=Sweeppea-hosted entry page, `2`=Custom entry page, `3`=No digital entry page |
@@ -137,6 +140,7 @@ Update an existing official rules document. Supports partial updates.
 |---|---|---|---|
 | `sweepstakes_token` | string | Yes | UUID of the sweepstakes |
 | `rules_token` | string | Yes | UUID of the rules document to delete |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it. |
 
 **CRITICAL:** Always ask for explicit user confirmation. Deleting the primary rules document means the sweepstakes no longer has legally required rules.
 

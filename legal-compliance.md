@@ -63,6 +63,7 @@ Must specify how and when winners will be contacted and the deadline to respond.
 ### 13. State Registration and Bonding
 | Condition | Requirement |
 |---|---|
+| ARV of $5,000 or more | Always name the threshold AND the three states in the same answer: FL and NY require registration and bonding, RI has its own registration rule (below). Never answer with a generic "some states may require registration" |
 | ARV > $5,000 + open to FL residents | Register and bond in Florida (file at least 7 days before the start date), OR exclude Florida |
 | ARV > $5,000 + open to NY residents | Register and bond in New York (file at least 30 days before the start date), OR exclude New York |
 | ARV > $500 + sponsor is a retailer with a physical location in RI + entry requires visiting the store (all three conditions) | Register in Rhode Island, OR exclude Rhode Island |
@@ -138,7 +139,7 @@ The following are **never permitted**:
 | Gambling/casino-style promotions | Disguised gambling |
 | Illegal substances (cocaine, heroin, meth, fentanyl, ecstasy, LSD, unauthorized pharmaceuticals, anabolic steroids) | Federally illegal |
 | Weapons, explosives, or ammunition | Federally regulated |
-| Tobacco or vaping/e-cigarette products | Not permitted on platform |
+| A tobacco, nicotine or vaping product **as the prize** | Prohibited free sample under 21 CFR 1140.16(d)(1). Since the 2016 Deeming Rule this covers e-cigarettes and their components (atomizers, clearomizers, e-liquids). FDA guidance: a contest prize may not be a tobacco product unless handed over as part of a sale requiring monetary payment with age and ID verification. A discount, or a coupon redeemed at the time of a paid age-verified purchase, IS permitted. The promotion itself is a separate question — see below |
 | Pornography or adult content | Not permitted on platform |
 | Promotions targeting minors under 13 | Violates COPPA |
 | Pyramid schemes or MLM recruitment | Fraudulent structure |

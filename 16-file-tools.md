@@ -53,6 +53,7 @@ List all files in the user's Drive with storage usage, categories, and paginatio
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `file_token` | string | Yes | UUID of the file to delete. Get via `fetch_files`. |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it. |
 
 **CRITICAL:** Always ask for explicit user confirmation before calling this tool.
 

@@ -77,6 +77,7 @@ Update an existing To-Do item. Supports partial updates — only provide the fie
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `todo_token` | string | Yes | UUID of the To-Do item to delete |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it. |
 
 **CRITICAL:** Always ask for explicit user confirmation before calling this tool.
 

@@ -2,7 +2,7 @@
 
 > This guide defines how AI agents connected to the Sweeppea MCP Server should behave. It covers the full workflow, critical guardrails, compliance decisions, and tool chaining best practices.
 
-**Server Version:** 1.19.1 | **Tools:** 83 | **Categories:** 18
+**Server Version:** 1.20.0 | **Tools:** 83 | **Categories:** 18
 **Endpoint:** `mcp.sweeppea.com` | **Transport:** Streamable HTTP | **Auth:** Bearer token
 **Availability:** United States and Canada — Sweeppea clients only
 
@@ -18,7 +18,10 @@
 - **Never retry destructive operations** if a tool returns an error — inform the user instead
 - **Rate limiting** — batch information gathering before making create/update calls
 
-### Destructive Operations (always require explicit confirmation)
+### Destructive Operations (every `delete_*` requires `confirm: true`)
+
+All twelve delete tools declare `confirm` as a **required** parameter and the server rejects the call without it. The flag asserts the user approved THIS specific deletion in this conversation, after being told what is lost. Never set it to satisfy the schema, never carry a confirmation over from a previous item, and never confirm a batch in one breath — ask once per item, delete once per item.
+
 - `delete_sweepstakes` — destroys ALL data permanently
 - `delete_participant` — permanently removes participant
 - `delete_rule` — removes legal protection
@@ -27,6 +30,10 @@
 - `delete_ticket` — permanent
 - `delete_calendar_event` — permanent
 - `delete_scheduled_drawing` — cancels drawing
+- `delete_todo` — permanent
+- `delete_file` — permanent
+- `delete_invoice` — permanent (cancelling via `update_invoice` keeps the history)
+- `delete_survey` — destroys questions, responses, stats and files
 
 ### Tool Chaining Limit
 When a task requires more than 5 tool calls, pause after completing a logical milestone, summarize progress to the user, and ask if they want to continue.
@@ -183,6 +190,12 @@ The agent must make these decisions automatically without asking the user:
 | Entry method = purchase/donation/subscription | VERIFY AMOE is configured. If not, WARN. Block rules creation until resolved. |
 | Sponsor produces/manufactures alcoholic products | Set `alcohol_sweeps=1`. VERIFY age minimum is 21. VERIFY Age Gate is active. In AL, IN, ME, MD, NC, VT or WV, WARN that State Alcohol Board approval is required before launch. |
 | Sponsor merely SELLS alcohol (retailer, store, bar, restaurant) | `alcohol_sweeps=2` — the alcohol trigger is who the sponsor is, not what the prize is. |
+| Tobacco, nicotine or vaping products involved in any way | `nicotine_tobacco_sweeps=1`, `min_age=2` (21+), Age Gate active, and `states=4` with a `list_of_states` excluding Massachusetts, Michigan and Virginia (those three prohibit tobacco-related sweepstakes). **Do NOT apply the alcohol producer/retailer split** — federal Tobacco 21 covers manufacturers and resellers alike. Never tell the user that reselling instead of manufacturing removes the age restriction. |
+| The prize is a tobacco, nicotine or vaping product | REFUSE. Prohibited free sample (21 CFR 1140.16(d)(1)), e-cigarettes and their components included. Offer the permitted shapes: a discount, or a coupon redeemed at the time of a paid age-verified purchase. |
+| The promotion is described as being for children or teenagers | Ask who actually SUBMITS the entry before creating anything. A parent or guardian entering on the child's behalf is compliant; children entering their own data is a COPPA violation and must be refused. Pass `entrants_are_18_or_older: true` only after that answer. Never resolve it silently by publishing 18+ rules for a promotion the user described as being for kids. |
+| Any sponsor field is not traceable to the user or to `get_business` for THIS promotion | Ask again. Never carry sponsor name, address, email, prize or URLs over from an earlier conversation or another sweepstakes, and never use a placeholder domain (`example.com`, `.example`, `.test`). Set `sponsor_data_confirmed: true` only after showing the user the exact block that will be published. |
+| The sponsor contact email is missing | Ask the user. The account owner's email from `get_profile` is NOT automatically the sponsor contact — the server blocks it unless `sponsor_email_is_account_owner: true` is passed. |
+| The sweepstakes `state` is `ended` | Say so first, with the closing date. Never suggest sharing the entry link, waiting for participants or editing the entry page. Offer instead: draw winners, clone into a new promotion, or review results. |
 | Non-alcohol with age 18+ or 13+ | NEVER activate Age Gate. Age Gate is exclusively for 21+ (alcohol/cannabis). |
 | User asks to limit to "48 states" or "continental US" | Use `states=1` (48 contiguous US + DC) in create_rules_wizard. For an arbitrary subset of states use `states=4` with `list_of_states`. NEVER use GeoLocation for state-level restrictions. |
 | Open to Canadian residents (`states` 7, 8, 9 or 10) | VERIFY the rules state the mathematical skill-testing question for Canadian winners. |
@@ -243,7 +256,9 @@ Both modules are DISABLED by default at the account level. On a 403 "module is n
 10. **Respect tool chaining limit** — pause and summarize after 5 tool calls
 11. **Match user's language** — respond in the same language the user writes in
 12. **Never reveal internal details** — don't discuss model, MCP architecture, API endpoints, or credentials
-13. **Prize values are immutable via MCP** — the prize is set in the Official Rules wizard at creation and no MCP tool can change it. Never simulate a prize change by editing entry page display text (`EntryPageHeadline`, `EntryPageDescription`) — that contradicts the Official Rules. Direct the user to Sweeppea support instead
+13. **Check the lifecycle state before advising** — `fetch_sweepstakes` returns `state`, `has_ended` and `days_until_end` for every sweepstakes. A promotion that already closed cannot receive entries
+14. **Read `pagination.has_more`** — `fetch_sweepstakes` is paginated. Never present a partial list as complete, and never fill the gap from memory
+15. **Prize values are immutable via MCP** — the prize is set in the Official Rules wizard at creation and no MCP tool can change it. Never simulate a prize change by editing entry page display text (`EntryPageHeadline`, `EntryPageDescription`) — that contradicts the Official Rules. Direct the user to Sweeppea support instead
 
 ---
 

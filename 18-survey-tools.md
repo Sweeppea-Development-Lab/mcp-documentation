@@ -160,13 +160,13 @@ Fetch the aggregated report of a survey: visit/start/complete totals, completion
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `survey_token` | string | Yes | The survey token (UUID v4) of the survey to delete |
-| `confirm` | boolean | No | Required `true` ONLY when the survey already has responses (409 otherwise). Pass it ONLY after the user explicitly confirmed losing all responses |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it, and the API also demands it when the survey already has responses |
 
 **CRITICAL:** Always ask for explicit user confirmation for this specific survey before calling this tool, spelling out what will be lost.
 
 **Notes:**
 
-- If the survey has responses the API additionally requires `confirm: true` (409 otherwise).
+- `confirm: true` is required for every call. When the survey already has responses it is also what the API demands (409 otherwise).
 - Participants created from the survey and the sweepstakes itself are **preserved**.
 - To disable a survey WITHOUT losing data, use `update_survey` with `status: false` instead — always offer that alternative first.
 - Call `get_survey` first to check the response count and tell the user exactly what will be lost.

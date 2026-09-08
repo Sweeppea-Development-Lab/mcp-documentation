@@ -103,7 +103,7 @@ Partially update entry page settings. Supports 80+ configurable fields.
 #### Age Gate (ONLY for alcohol/cannabis — 21+ promotions)
 | Field | Type | Description |
 |---|---|---|
-| `ActivateAgeGateSwitch` | boolean | Enable age verification gate. ONLY activate when min_age is 21+ (alcohol/cannabis). NEVER activate for 18+ or 13+ promotions. |
+| `ActivateAgeGateSwitch` | boolean | Enable age verification gate. ONLY activate for 21+ promotions (alcohol, cannabis, and where authorized tobacco/nicotine/vaping). NEVER activate for 18+ or 13+ promotions. When it is `true`, `AgeGateMinAge` must be `3` — the account validation rejects `1` and `2` while the gate is active, so send both fields in the same request. |
 | `AgeGateHeadline` | string | Age gate headline |
 | `AgeGateDescription` | string | Age gate description |
 | `AgeGateMinAge` | number | Minimum age **enum, not years**: `1` = 13+, `2` = 18+, `3` = 21+. Sending 13/18/21 is rejected by the API. Not the same enum as `min_age` in `create_rules_wizard` (there `1` = 18+, `2` = 21+, `3` = 13+) |
@@ -248,5 +248,5 @@ The following CANNOT be configured via MCP and must be done at app.sweeppea.com:
 The following must be enabled for every sweepstakes:
 
 - `TermsConditionsSwitch: true` — Required. Displays "I agree with the Official Rules" checkbox.
-- `ActivateAgeGateSwitch: true` — Required ONLY for alcohol and cannabis promotions (21+). NEVER activate for 18+ or 13+ promotions.
+- `ActivateAgeGateSwitch: true` — Required ONLY for 21+ promotions (alcohol, cannabis, and where authorized tobacco/nicotine/vaping). NEVER activate for 18+ or 13+ promotions. With the gate on, `AgeGateMinAge` must be `3`.
 - `ActivateAmoeSwitch: true` — Required when any entry method involves a purchase, donation, or subscription. Note: The AMOE page URL is managed automatically by Sweeppea — it is NOT the same as the entry page URL.

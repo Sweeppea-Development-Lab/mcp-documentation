@@ -70,6 +70,7 @@ Rename an existing group.
 |---|---|---|---|
 | `sweepstakes_token` | string | Yes | UUID of the sweepstakes |
 | `group_token` | string | Yes | UUID of the group to delete |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it. |
 
 **Restrictions:**
 - Cannot delete primary groups

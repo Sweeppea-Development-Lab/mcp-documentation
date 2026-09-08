@@ -87,6 +87,7 @@ Update an existing note. Supports partial updates (only provide fields you want 
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `note_token` | string | Yes | UUID of the note to delete |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it. |
 
 **CRITICAL:** Always ask for explicit user confirmation before calling this tool.
 

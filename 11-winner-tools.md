@@ -111,6 +111,7 @@ Cancel and delete a pending scheduled drawing. Only drawings with pending status
 |---|---|---|---|
 | `sweepstakes_token` | string | Yes | UUID of the sweepstakes |
 | `schedule_token` | string | Yes | UUID of the scheduled drawing (from `fetch_scheduled_drawings`) |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it. |
 
 **CRITICAL:** Always ask for explicit user confirmation before calling this tool. Get the `schedule_token` from `fetch_scheduled_drawings` first.
 

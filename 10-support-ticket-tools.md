@@ -117,6 +117,7 @@ Close and resolve an open support ticket.
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `case_id` | string | Yes | Case ID of the ticket to delete |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it. |
 
 **CRITICAL:** Always ask for explicit user confirmation before calling this tool. Consider resolving instead of deleting to preserve history.
 

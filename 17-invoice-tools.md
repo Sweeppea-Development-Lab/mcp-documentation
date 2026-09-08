@@ -141,6 +141,7 @@ pending → cancelled
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `invoice_token` | string | Yes | The invoice token (UUID v4) of the invoice to delete |
+| `confirm` | boolean | Yes | Must be `true`. Assert it only after the user explicitly confirmed THIS deletion, having been told what is lost. The server rejects the call without it. |
 
 **CRITICAL:** Always ask for explicit user confirmation for this specific invoice before calling this tool.
 
