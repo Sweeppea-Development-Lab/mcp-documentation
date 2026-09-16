@@ -56,7 +56,7 @@ Get full details of a support ticket by case number.
 
 ## create_ticket
 
-Create a new support ticket.
+Create a new support ticket for a platform, optionally assigned to one admin.
 
 **Parameters:**
 
@@ -65,7 +65,12 @@ Create a new support ticket.
 | `title` | string | Yes | Brief summary (max 200 chars) |
 | `description` | string | Yes | Detailed description of the issue (max 20,000 chars) |
 | `priority` | number | Yes | `1`=Low, `2`=Medium, `3`=High |
-| `assign_to` | string | No | Name or email of an admin user to assign the ticket to exclusively. If omitted, assigned to all admins. Case-insensitive for names, exact for emails. |
+| `platform` | string | No | Platform the ticket is about: `general`, `renaissance`, `overture`, `winners`, `soprano`, `symphony`, `sonata`, `papyrus`, `website`, `blog`, `enewsletter`, `socialmedia`, `api`, `aws`, `shopify`, `instakes`, `mcp-server`, `sweeppea-cli`, `n8n`, `other`. Defaults to `general`. |
+| `assign_to` | string | No | Email, full name, username or first name of an admin user to assign the ticket to exclusively. If omitted, assigned to all admins. |
+
+**Platform:** set it whenever the user names the product the ticket is about ("a change in a Renaissance feature" → `renaissance`). Without it the ticket is filed under `general` and does not appear under the product's filter.
+
+**Assignment resolution** (first stage with a single match wins): exact email → exact full name or username → whole words (`"martin"` → `"Martin Gaido"`, not `"Marcos Martinez"`) → unique partial match. When a stage matches more than one admin the tool returns an error listing the candidates — ask the user which one they mean and retry with the full name. Use `assign_to` whenever the user says who the ticket is for; never invent a name they did not mention.
 
 **Allowed HTML in description:** `<b>`, `<strong>`, `<i>`, `<hr>`, `<br>`
 
