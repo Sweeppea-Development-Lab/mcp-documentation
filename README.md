@@ -1,8 +1,8 @@
 # Sweeppea MCP Server — Documentation
 
-> **Version:** 1.22.0 | **Tools:** 109 | **Categories:** 20 | **Protocol:** MCP 2025-11-25
+> **Version:** 1.23.0 | **Tools:** 116 | **Categories:** 21 | **Protocol:** MCP 2025-11-25
 
-Sweeppea MCP Server is a Model Context Protocol (MCP) server for AI-powered sweepstakes management. It provides 109 tools across 20 categories to manage sweepstakes, participants, official rules, winners, billing, calendar events, support tickets, and more — all accessible through any MCP-compatible AI client via Streamable HTTP transport.
+Sweeppea MCP Server is a Model Context Protocol (MCP) server for AI-powered sweepstakes management. It provides 116 tools across 21 categories to manage sweepstakes, participants, official rules, winners, billing, calendar events, support tickets, and more — all accessible through any MCP-compatible AI client via Streamable HTTP transport.
 
 > **Availability:** This MCP server is available exclusively for Sweeppea clients in the United States and Canada.
 
@@ -54,6 +54,7 @@ claude mcp add sweeppea https://mcp.sweeppea.com/ \
 | 18 | [Surveys](./18-survey-tools.md) | 7 | Surveys attached to sweepstakes: questions, responses, reports (account-gated module) |
 | 19 | [Codes & Coupons](./19-codes-tools.md) | 14 | Import or generate codes, assign, redeem, settings and delivery (account-gated module) |
 | 20 | [Messaging](./20-messaging-tools.md) | 12 | Campaigns, delivery reports, suppression list and direct messages (account-gated module) |
+| 21 | [Drip Campaigns](./21-drip-campaigns-tools.md) | 7 | Automated email/SMS sequences: read, report, enrollments, pause, resume, remove a contact (account-gated module) |
 
 ---
 

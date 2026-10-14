@@ -2,7 +2,7 @@
 
 > This guide defines how AI agents connected to the Sweeppea MCP Server should behave. It covers the full workflow, critical guardrails, compliance decisions, and tool chaining best practices.
 
-**Server Version:** 1.22.0 | **Tools:** 109 | **Categories:** 20
+**Server Version:** 1.23.0 | **Tools:** 116 | **Categories:** 21
 **Endpoint:** `mcp.sweeppea.com` | **Transport:** Streamable HTTP | **Auth:** Bearer token
 **Availability:** United States and Canada — Sweeppea clients only
 
@@ -233,12 +233,24 @@ The agent must make these decisions automatically without asking the user:
 
 ---
 
-## Gated Modules — Invoices & Surveys
+## Gated Modules — Invoices, Surveys, Codes & Coupons, Messaging, Drip Campaigns
 
-Both modules are DISABLED by default at the account level. On a 403 "module is not enabled" error, do NOT retry — tell the user to contact Sweeppea support to request access.
+These modules are DISABLED by default at the account level. On a 403 "module is not enabled" error, do NOT retry — tell the user to contact Sweeppea support to request access. Read which module the API named: a category can gate its reads and its writes differently.
 
 - **Invoices:** totals are always computed server-side — never calculate amounts yourself. State machine: draft → pending → paid, cancelled from draft/pending; paid/cancelled invoices are immutable (409). `delete_invoice` is IRREVERSIBLE and NOT the same as cancelling — offer `update_invoice` with status "cancelled" first. Creating or publishing never emails the recipient.
 - **Surveys:** once a survey has responses its question structure is LOCKED (409 on replacement). `delete_survey` is IRREVERSIBLE (questions, responses, stats, files) and requires `confirm: true` when responses exist — only after explicit user acceptance; offer disabling via `update_survey` status false first. Response metadata is PII — fetch it only when explicitly needed and never copy it into notes or tickets.
+- **Codes & Coupons:** use `fetch_code_stats` for counts instead of paging `fetch_codes`. `update_code` and `update_code_settings` treat `null` as CLEAR and omission as leave-unchanged — never send `null` unless the user asked to empty that field. `delete_codes` and `unassign_code` are destructive and require `confirm: true`; `unassign_code` also wipes any redemption, so offer `unredeem_code` first when the user only wants to undo a redemption. `send_code` puts a real message on the wire. The reads of this category are not module-gated; the writes are.
+- **Messaging:** **campaigns cannot be created through this server** — say so plainly instead of improvising a workaround. When a send is refused, call `fetch_messaging_usage` before explaining why: it is the only call that separates module access, plan channels, an exhausted allowance, a sending pause and a missing 10DLC number. `send_message` and `send_code` send a REAL, unrecallable message and require `confirm: true` — never send one to "test" that it works. `cancel_campaign` cannot be undone; offer `pause_campaign` first. `remove_suppression` only works on entries added by hand — a recipient's own opt-out, a STOP reply or a complaint is never removable, and trying is a compliance problem, not a bug. Suppression lists and recipient addresses are PII.
+- **Drip Campaigns:** **drips cannot be created through this server** — they are created, edited, activated and deleted only in the Sweeppea app, which runs a launch checklist (template, sender, 10DLC, content screening, plan) the API does not reproduce. That is a design decision, not a gap. The gate is split differently here than in Codes and Messaging: the four reads need Drip Marketing, the three writes need Drip Marketing **and** Send Message. `can_run: false` is a **plan** signal — whether the plan lets drips be activated or resumed — not a module signal. `remove_drip_contact` requires `confirm: true` and is **permanent**: one enrolment per address per drip, ever, so the contact is never enrolled again by that drip. Step numbers are inconsistent, including inside one response — `get_drip` `Steps[].Index` and `fetch_drip_report` `steps[].Index` are 0-based (verified live 2026-10-12), while `NextStep` and the report `top_links` step are 1-based (documented, unobserved). The three reads pass nested objects through in PascalCase, exactly as api-v3 sends them; only the envelope is renamed. In `fetch_drip_report`, `top_links` of `null` means the links could not be read while `[]` means nobody clicked. Only an **active** drip can be paused — any other status answers 409 naming the status it is in. `fetch_drip_enrollments` never returns email addresses or phone numbers. `resume_drip` names its cause in the message in prose (verified live); the documented `api_data.Reason` has never been observed on a real refusal — `Blocked`, `EditedSincePause`, `StepsNotActivated` (409); `PlanDoesNotAllowSharing`, `ChannelNotInPlan`, `NoRegisteredSmsSender`, `StaffHold` (403); `ChannelPaused` (423) — and a drip edited after pausing must be resumed in the app. Whenever any call fails, read `error.api_data` before explaining why: api-v3 puts the machine-readable cause there and the message alone often does not carry it.
+
+## WHAT THIS SERVER DOES NOT DO, ON PURPOSE
+
+- **Drip campaigns:** listing, reading, reports, enrolments, pause, resume and removing one contact exist. **Creating, editing, activating, archiving and deleting do not.**
+- **Email templates:** **no endpoints at all** — not even to list them.
+- **Sender profiles:** **no endpoints at all.**
+- **Messaging campaigns:** the same pattern as drips — they are read, paused, resumed and cancelled, never created.
+
+All of it is done in the Sweeppea app. These are **deliberate omissions by the maintainer of the Sweeppea API** (confirmed by the API maintainer, October 2026), not features this server has yet to catch up with: the app runs a launch checklist — template, sender, 10DLC registration, content screening, plan allowance — that the API does not reproduce. Say so plainly when a user asks for one of them. **Never propose, invent or promise a tool for any of it**, and never improvise a workaround out of the tools that do exist.
 
 ---
 
